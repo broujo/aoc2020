@@ -1,8 +1,6 @@
 open Parser
 
-type marked_op =
-  { op: op;
-    mutable m: bool; }
+type marked_op = { op: op; mutable m: bool; }
 
 let init_op op = { op; m=false }
 

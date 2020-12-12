@@ -35,8 +35,6 @@ let find_cont_sum l i =
   in
   aux CCFQueue.empty 0 l
 
-
- 
 let test_input =
   "35
 20
