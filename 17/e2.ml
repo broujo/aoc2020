@@ -29,12 +29,12 @@ end
 
 module P = CCMap.Make(C)
 
-let pocket_add_row l x z w p =
+let pocket_add_row z w p x l =
   CCList.foldi (fun p y e -> P.add (x, y, z, w) e p) p l
 
 let pocket_init l =
   let z = 0 and w = 0 and p = P.empty in
-  CCList.foldi (fun p x l -> pocket_add_row l x z w p) p l
+  CCList.foldi (pocket_add_row z w) p l
   |> P.filter (fun _ a -> a = Active)
 
 let to_cube_list l =
@@ -59,12 +59,12 @@ let do_incr m coord =
       | None -> Some 1)
     m
 
-let mark_neighbour (i, j, k, l) (di, dj, dk, dl) m =
+let mark_neighbour (i, j, k, l) m (di, dj, dk, dl) =
   do_incr m (i + di, j + dj, k + dk, l + dl)
 
 let mark_neighbours coord cube m =
   match cube with
-  | Active -> CCList.fold_left (fun m dir -> mark_neighbour coord dir m) m directions
+  | Active -> CCList.fold_left (mark_neighbour coord) m directions
   | _ -> m
 
 let cube_change p coord count new_p =
