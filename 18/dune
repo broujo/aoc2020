@@ -1,0 +1,22 @@
+(executables
+  (names e1 e2)
+  (libraries str helpers containers containers-data angstrom ocamlgraph oseq))
+
+(ocamllex lexer)
+
+(menhir
+  (modules tokens)
+  (flags --only-tokens)
+)
+
+(menhir
+  (modules tokens common parser1)
+  (merge_into parser1)
+  (flags --external-tokens Tokens)
+)
+
+(menhir
+  (modules tokens common parser2)
+  (merge_into parser2)
+  (flags --external-tokens Tokens)
+)

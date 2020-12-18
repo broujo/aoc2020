@@ -1,0 +1,3 @@
+%left TIMES PLUS
+
+%%
